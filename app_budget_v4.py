@@ -155,7 +155,7 @@ def calcola_budget_progetto(pm_date, sop_date, hc, zbb, hr_hc, hr_zbb, css, sele
     }
 
 # --- INTERFACCIA UTENTE PRINCIPALE ---
-st.title("Automotive ECU Budgeting & Costing Platform")
+st.title("ECU Budgeting Platform")
 st.markdown("Piattaforma ingegneristica per il calcolo dei costi di sviluppo e la ripartizione delle risorse HC/ZBB.")
 
 tab1, tab2, tab3 = st.tabs(["⚙️ Admin Panel", "📊 Nuovo Budget / Change Request", "🗄️ Repository & Versioning"])
@@ -167,7 +167,7 @@ with tab1:
     st.header("Anagrafiche Portfolio ed Informative di Sistema")
     
     # Gestione delle Note Linee Guida
-    st.subheader("Note e Linee Guena Generali")
+    st.subheader("Note e Linee Guida Generali")
     guidelines_input = st.text_area("Modifica le note informative visualizzate nel configuratore:", value=db["admin"]["guidelines"], height=100)
     if guidelines_input != db["admin"]["guidelines"]:
         db["admin"]["guidelines"] = guidelines_input
@@ -178,9 +178,9 @@ with tab1:
     col_a1, col_a2 = st.columns(2)
     
     with col_a1:
-        st.subheader("Portfolio Centraline (ECU)")
+        st.subheader("Portfolio ECU")
         with st.form("add_ecu_form", clear_on_submit=True):
-            nuova_ecu = st.text_input("Nome Nuova Centralina da inserire:")
+            nuova_ecu = st.text_input("Nome Nuova ECU da inserire:")
             if st.form_submit_button("Inserisci ECU nel Portfolio") and nuova_ecu:
                 clean_name = nuova_ecu.strip()
                 if clean_name not in db["admin"]["ecu_portfolio"]:
@@ -200,7 +200,7 @@ with tab1:
             st.rerun()
 
     with col_a2:
-        st.subheader("Model Line & Gestione Veicoli")
+        st.subheader("Model Line & Veicoli")
         with st.form("add_ml_form", clear_on_submit=True):
             nuova_ml = st.text_input("Inserisci Nuova Model Line:")
             if st.form_submit_button("Crea Model Line") and nuova_ml:
