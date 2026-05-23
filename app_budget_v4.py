@@ -14,7 +14,7 @@ st.set_page_config(
 
 DB_FILE = "ecu_budget_db.json"
 
-# --- STRUTTURA DATI DI DEFAULT (PERSISTENZA) ---
+# --- STRUTTURA DATI DE DEFAULT (PERSISTENZA) ---
 def load_db():
     default_structure = {
         "admin": {
@@ -156,7 +156,7 @@ def calcola_budget_progetto(pm_date, sop_date, hc, zbb, hr_hc, hr_zbb, css, sele
 
 # --- INTERFACCIA UTENTE PRINCIPALE ---
 st.title("Automotive ECU Budgeting & Costing Platform")
-st.markdown("Piattaforma ingegneristica per il calcolo dei costi di sviluppo e la ripartizione delle risorse $HC/ZBB$.")
+st.markdown("Piattaforma ingegneristica per il calcolo dei costi di sviluppo e la ripartizione delle risorse HC/ZBB.")
 
 tab1, tab2, tab3 = st.tabs(["⚙️ Admin Panel", "📊 Nuovo Budget / Change Request", "🗄️ Repository & Versioning"])
 
@@ -167,7 +167,7 @@ with tab1:
     st.header("Anagrafiche Portfolio ed Informative di Sistema")
     
     # Gestione delle Note Linee Guida
-    st.subheader("Note e Linee Guida Generali")
+    st.subheader("Note e Linee Guena Generali")
     guidelines_input = st.text_area("Modifica le note informative visualizzate nel configuratore:", value=db["admin"]["guidelines"], height=100)
     if guidelines_input != db["admin"]["guidelines"]:
         db["admin"]["guidelines"] = guidelines_input
@@ -356,7 +356,7 @@ with tab2:
                             min_value=0.0, value=float(saved_ecu_inputs.get(f"{voce}_h", 0.0)), step=10.0, key=f"h_{voce}_{ecu}"
                         )
                         
-                with c_e3 = col_e3:
+                with col_e3:
                     st.markdown("**Voci di Costo Esterno (ext cost)**")
                     dati_input_ecu[ecu]["hil_testing_ext"] = st.number_input(
                         f"HIL testing (€ ext) - {ecu}:", 
@@ -385,8 +385,8 @@ with tab2:
                     st.markdown("---")
                     st.markdown(f"📊 **SUM_UP Singola Centralina - {ecu}**")
                     cs1, cs2, cs3, cs4 = st.columns(4)
-                    cs1.metric("Ore HC", f"{s_ecu['hc_hours']:.1f} h", help=f"Ripartite su costo orario hrHC")
-                    cs2.metric("Ore ZBB", f"{s_ecu['zbb_hours']:.1f} h", help=f"Ripartite su costo orario hrZBB")
+                    cs1.metric("Ore HC", f"{s_ecu['hc_hours']:.1f} h", help="Ripartite su costo orario hrHC")
+                    cs2.metric("Ore ZBB", f"{s_ecu['zbb_hours']:.1f} h", help="Ripartite su costo orario hrZBB")
                     cs3.metric("Supplier Cost (€)", f"{s_ecu['supplier_cost']:,} €")
                     cs4.metric("Ext Cost Totale (€)", f"{s_ecu['ext_cost']:,} €")
     else:
@@ -496,7 +496,7 @@ with tab2:
                     st.success(f"Budget '{nome_costificazione_chiave}' registrato con successo (Versione v1)!")
                 else:
                     storico_esistente = db["repository"][nome_costificazione_chiave]
-                    prossima_v = len(storico_existing := storico_esistente) + 1
+                    prossima_v = len(storico_esistente) + 1
                     payload_salvataggio["version"] = prossima_v
                     db["repository"][nome_costificazione_chiave].append(payload_salvataggio)
                     st.success(f"Archiviata nuova versione v{prossima_v} per la costificazione '{nome_costificazione_chiave}'.")
